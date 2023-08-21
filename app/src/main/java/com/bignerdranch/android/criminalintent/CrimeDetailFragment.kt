@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
+import com.bignerdranch.android.criminalintent.databinding.FragmentCrimeDetailBinding
 import java.util.Date
 import java.util.UUID
 
@@ -19,6 +21,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CrimeDetailFragment : Fragment() {
+
+    private lateinit var binding: FragmentCrimeDetailBinding
+
     private lateinit var crime: Crime
 
     // TODO: Rename and change types of parameters
@@ -44,8 +49,27 @@ class CrimeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_crime_detail, container, false)
+        binding = FragmentCrimeDetailBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            crimeTitle.doOnTextChanged { text, _, _, _ ->
+                crime = crime.copy(title = text.toString())
+            }
+
+            crimeDate.apply {
+                text = crime.date.toString()
+                isEnabled = false
+            }
+
+            crimeSolved.setOnCheckedChangeListener { _, isChecked ->
+                crime = crime.copy(isSolved = isChecked)
+            }
+        }
     }
 
     companion object {

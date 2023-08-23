@@ -30,7 +30,7 @@ class CrimeDetailFragment : Fragment() {
             "Cannot access binding because it is null. Is the view visible?"
         }
 
-    private lateinit var crime: Crime
+    lateinit var crime: Crime
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -41,7 +41,7 @@ class CrimeDetailFragment : Fragment() {
         crime = Crime(
             id = UUID.randomUUID(),
             title = "",
-            Date(),
+            date = Date(),
             false
         )
 
@@ -63,16 +63,16 @@ class CrimeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            crimeTitle.doOnTextChanged { text, _, _, _ ->
+            editTextCrimeTitle.doOnTextChanged { text, _, _, _ ->
                 crime = crime.copy(title = text.toString())
             }
 
-            crimeDate.apply {
+            buttonCrimeDate.apply {
                 text = crime.date.toString()
                 isEnabled = false
             }
 
-            crimeSolved.setOnCheckedChangeListener { _, isChecked ->
+            checkBoxCrimeSolved.setOnCheckedChangeListener { _, isChecked ->
                 crime = crime.copy(isSolved = isChecked)
             }
         }

@@ -41,6 +41,7 @@ android {
 
 dependencies {
     val fragmentVersion = "1.6.1"
+    val roomVersion = "2.5.2"
 
     // Jetpack
     implementation("androidx.core:core-ktx:1.10.1")
@@ -52,6 +53,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    // Room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 
     // test
     testImplementation("junit:junit:4.13.2")

@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.bignerdranch.android.criminalintent.database.CrimeDatabase
 import java.util.UUID
 
-private const val DATABASE_NAME = ""
+private const val DATABASE_NAME = "crime-database"
 
 class CrimeRepository private constructor(context: Context) {
 
@@ -13,7 +13,9 @@ class CrimeRepository private constructor(context: Context) {
         context.applicationContext,
         CrimeDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    )
+        .createFromAsset(DATABASE_NAME)
+        .build()
 
     suspend fun getCrimes(): List<Crime> = database.crimeDao().getCrimes()
     suspend fun getCrime(id: UUID): Crime = database.crimeDao().getCrime(id)

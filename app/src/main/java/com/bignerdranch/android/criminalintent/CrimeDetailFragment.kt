@@ -69,7 +69,7 @@ class CrimeDetailFragment : Fragment() {
             }
 
             buttonCrimeDate.apply {
-                text = DateFormat.format("MMM d, yyyy", crime.date).toString()
+                text = DateFormat.format("MMMM d, yyyy", crime.date).toString()
                 isEnabled = false
             }
 

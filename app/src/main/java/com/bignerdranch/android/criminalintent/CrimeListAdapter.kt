@@ -27,7 +27,7 @@ class CrimeHolder(private val binding: ListItemCrimeBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(crime: Crime) {
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = DateFormat.format("MMM d, yyyy", crime.date).toString()
+        binding.crimeDate.text = DateFormat.format("MMMM d, yyyy", crime.date).toString()
         // add a toast for clicking each row
         binding.root.setOnClickListener {
             Toast.makeText(

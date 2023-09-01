@@ -1,6 +1,7 @@
 package com.bignerdranch.android.criminalintent
 
 import android.os.Bundle
+import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -68,7 +69,7 @@ class CrimeDetailFragment : Fragment() {
             }
 
             buttonCrimeDate.apply {
-                text = crime.date.toString()
+                text = DateFormat.format("MMM d, yyyy", crime.date).toString()
                 isEnabled = false
             }
 

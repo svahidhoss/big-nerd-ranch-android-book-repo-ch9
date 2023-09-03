@@ -1,30 +1,18 @@
 package com.bignerdranch.android.criminalintent
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.Date
-import java.util.UUID
 
 private const val TAG = "CrimeListViewModel"
 
 class CrimeListViewModel : ViewModel() {
     private val crimeRepository = CrimeRepository.get()
 
-    private val crimes = mutableListOf<Crime>()
+    val crimes = crimeRepository.getCrimes()
 
     init {
-        Log.d(TAG, "init method starting")
         viewModelScope.launch {
-            Log.d(TAG, "coroutine launched!")
-            crimes += loadCrimes()
-            Log.d(TAG, "Loading crimes finished")
         }
-    }
-
-    suspend fun loadCrimes(): List<Crime> {
-        return crimeRepository.getCrimes()
     }
 }

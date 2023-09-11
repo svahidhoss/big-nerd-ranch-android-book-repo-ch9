@@ -4,11 +4,13 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.criminalintent.databinding.ListItemCrimeBinding
 
-class CrimeListAdapter(private val crimes: List<Crime>) : RecyclerView.Adapter<CrimeHolder>() {
+class CrimeListAdapter(
+    private val crimes: List<Crime>,
+    private val onCrimeClicked: () -> Unit
+) : RecyclerView.Adapter<CrimeHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemCrimeBinding.inflate(inflater, parent, false)
@@ -19,22 +21,18 @@ class CrimeListAdapter(private val crimes: List<Crime>) : RecyclerView.Adapter<C
 
     override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
         val crime = crimes[position]
-        holder.bind(crime)
+        holder.bind(crime, onCrimeClicked)
     }
 }
 
 class CrimeHolder(private val binding: ListItemCrimeBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(crime: Crime) {
+    fun bind(crime: Crime, onCrimeClicked: () -> Unit) {
         binding.crimeTitle.text = crime.title
         binding.crimeDate.text = DateFormat.format("MMMM d, yyyy", crime.date).toString()
-        // add a toast for clicking each row
+        // use the lambda that was passed from CrimeListFragment
         binding.root.setOnClickListener {
-            Toast.makeText(
-                binding.root.context,
-                "${crime.title} clicked!",
-                Toast.LENGTH_SHORT
-            ).show()
+            onCrimeClicked()
         }
         binding.crimeSolved.visibility =
             if (crime.isSolved) View.VISIBLE else View.GONE

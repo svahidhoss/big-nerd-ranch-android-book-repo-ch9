@@ -28,6 +28,14 @@ class CrimeDetailViewModel(crimeId: UUID) : ViewModel() {
             oldCrime?.let { onUpdate(it) }
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        viewModelScope.launch {
+            _crime.value?.let { crimeRepository.updateCrime(it) }
+        }
+    }
 }
 
 class CrimeDetailViewModelFactory(private val crimeId: UUID) : ViewModelProvider.Factory {

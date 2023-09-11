@@ -1,17 +1,18 @@
 package com.bignerdranch.android.criminalintent
 
 import android.os.Bundle
-import android.text.format.DateFormat
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.bignerdranch.android.criminalintent.databinding.FragmentCrimeDetailBinding
-import java.util.Date
-import java.util.UUID
+import kotlinx.coroutines.launch
 
 private const val TAG = "CrimeDetailFragment"
 
@@ -29,6 +30,10 @@ class CrimeDetailFragment : Fragment() {
         }
 
     private val args: CrimeDetailFragmentArgs by navArgs()
+
+    private val crimeDetailViewModel: CrimeDetailViewModel by viewModels {
+        CrimeDetailViewModelFactory(args.crimeId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +56,24 @@ class CrimeDetailFragment : Fragment() {
 
             checkBoxCrimeSolved.setOnCheckedChangeListener { _, isChecked ->
             }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                crimeDetailViewModel.crime.collect { crime ->
+                    crime?.let { updateUi(it) }
+                }
+            }
+        }
+    }
+
+    private fun updateUi(crime: Crime) {
+        // prevents an infinite loop when listening to changes start
+        binding.apply {
+            if (editTextCrimeTitle.text.toString() != crime.title)
+                editTextCrimeTitle.setText(crime.title)
+            buttonCrimeDate.text = crime.date.toString()
+            checkBoxCrimeSolved.isChecked = crime.isSolved
         }
     }
 

@@ -3,16 +3,17 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs")
 }
 
 android {
     namespace = "com.bignerdranch.android.criminalintent"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.bignerdranch.android.criminalintent"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

@@ -2,11 +2,13 @@ package com.bignerdranch.android.criminalintent
 
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import androidx.navigation.fragment.navArgs
 import com.bignerdranch.android.criminalintent.databinding.FragmentCrimeDetailBinding
 import java.util.Date
 import java.util.UUID
@@ -15,6 +17,8 @@ import java.util.UUID
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+private const val TAG = "CrimeDetailFragment"
 
 /**
  * A simple [Fragment] subclass.
@@ -33,6 +37,8 @@ class CrimeDetailFragment : Fragment() {
 
     lateinit var crime: Crime
 
+    private val args: CrimeDetailFragmentArgs by navArgs()
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -45,6 +51,8 @@ class CrimeDetailFragment : Fragment() {
             date = Date(),
             false
         )
+
+        Log.d(TAG, "The crime ID is: ${args.crimeId}")
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)

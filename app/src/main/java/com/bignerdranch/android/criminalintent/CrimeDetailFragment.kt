@@ -71,10 +71,6 @@ class CrimeDetailFragment : Fragment() {
                 }
             }
 
-            buttonCrimeDate.apply {
-                isEnabled = false
-            }
-
             checkBoxCrimeSolved.setOnCheckedChangeListener { _, isChecked ->
                 crimeDetailViewModel.updateCrime { oldCrime ->
                     oldCrime.copy(isSolved = isChecked)
@@ -97,6 +93,9 @@ class CrimeDetailFragment : Fragment() {
             if (editTextCrimeTitle.text.toString() != crime.title)
                 editTextCrimeTitle.setText(crime.title)
             buttonCrimeDate.text = crime.date.toString()
+            buttonCrimeDate.setOnClickListener {
+                findNavController().navigate(CrimeDetailFragmentDirections.selectDate())
+            }
             checkBoxCrimeSolved.isChecked = crime.isSolved
         }
     }

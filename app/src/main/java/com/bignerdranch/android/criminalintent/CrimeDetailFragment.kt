@@ -42,7 +42,7 @@ class CrimeDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         // This callback is only called when MyFragment is at least started
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
             // Handle the back button event
             if (binding.editTextCrimeTitle.text.toString().isBlank()) {
                 Toast.makeText(context, R.string.crime_title_cannot_be_empty, Toast.LENGTH_SHORT)

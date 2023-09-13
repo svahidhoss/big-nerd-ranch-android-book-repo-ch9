@@ -81,11 +81,16 @@ class CrimeListFragment : Fragment() {
                 showNewCrime()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun showNewCrime() {
-        TODO("Not yet implemented")
+        viewLifecycleOwner.lifecycleScope.launch {
+            val newCrime = Crime()
+            crimeListViewModel.addCrime(newCrime)
+            findNavController().navigate(CrimeListFragmentDirections.showCrimeDetail(newCrime.id))
+        }
     }
 }

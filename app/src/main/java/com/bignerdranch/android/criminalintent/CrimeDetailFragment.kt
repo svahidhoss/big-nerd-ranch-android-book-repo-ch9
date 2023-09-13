@@ -94,6 +94,13 @@ class CrimeDetailFragment : Fragment() {
                 it.copy(date = newDate)
             }
         }
+
+        setFragmentResultListener(TimePickerFragment.REQUEST_KEY_TIME) { _, bundle ->
+            val newDate = bundle.getSerializable(TimePickerFragment.BUNDLE_KEY_TIME) as Date
+            crimeDetailViewModel.updateCrime {
+                it.copy(date = newDate)
+            }
+        }
     }
 
     private fun updateUi(crime: Crime) {

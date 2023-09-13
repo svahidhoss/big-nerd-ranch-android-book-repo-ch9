@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bignerdranch.android.criminalintent.databinding.FragmentCrimeDetailBinding
 import kotlinx.coroutines.launch
+import java.util.Date
 
 private const val TAG = "CrimeDetailFragment"
 
@@ -83,6 +85,13 @@ class CrimeDetailFragment : Fragment() {
                 crimeDetailViewModel.crime.collect { crime ->
                     crime?.let { updateUi(it) }
                 }
+            }
+        }
+
+        setFragmentResultListener(DatePickerFragment.REQUEST_KEY_DATE) { _, bundle ->
+            val newDate = bundle.getSerializable(DatePickerFragment.BUNDLE_KEY_DATE) as Date
+            crimeDetailViewModel.updateCrime {
+                it.copy(date = newDate)
             }
         }
     }

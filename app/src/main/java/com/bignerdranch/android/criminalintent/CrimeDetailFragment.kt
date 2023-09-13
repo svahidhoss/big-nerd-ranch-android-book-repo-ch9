@@ -105,6 +105,9 @@ class CrimeDetailFragment : Fragment() {
             buttonCrimeDate.setOnClickListener {
                 findNavController().navigate(CrimeDetailFragmentDirections.selectDate(crime.date))
             }
+            buttonCrimeTime.setOnClickListener {
+                findNavController().navigate(CrimeDetailFragmentDirections.selectTime(crime.date))
+            }
             checkBoxCrimeSolved.isChecked = crime.isSolved
         }
     }

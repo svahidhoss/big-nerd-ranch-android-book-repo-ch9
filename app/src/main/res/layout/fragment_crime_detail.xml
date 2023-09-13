@@ -33,6 +33,12 @@
         android:layout_height="wrap_content"
         tools:text="Wed May 11 11:56 EST 2022" />
 
+    <Button
+        android:id="@+id/button_crime_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/crime_time_hint" />
+
     <CheckBox
         android:id="@+id/check_box_crime_solved"
         android:layout_width="match_parent"

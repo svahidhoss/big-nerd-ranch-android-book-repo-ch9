@@ -3,7 +3,6 @@ package com.bignerdranch.android.criminalintent
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.icu.util.Calendar
-import android.icu.util.GregorianCalendar
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -14,9 +13,13 @@ class DatePickerFragment : DialogFragment() {
 
     private val args: DatePickerFragmentArgs by navArgs()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val calendar = Calendar.getInstance()
+        calendar.time = args.crimeDate
+
         val dateListener =
             DatePickerDialog.OnDateSetListener { _, year: Int, month: Int, day: Int ->
-                val resultDate = GregorianCalendar(year, month, day).time
+                calendar.set(year, month, day)
+                val resultDate = calendar.time
 
                 setFragmentResult(
                     REQUEST_KEY_DATE,
@@ -24,8 +27,6 @@ class DatePickerFragment : DialogFragment() {
                 )
             }
 
-        val calendar = Calendar.getInstance()
-        calendar.time = args.crimeDate
         val initialYear = calendar.get(Calendar.YEAR)
         val initialMonth = calendar.get(Calendar.MONTH)
         val initialDay = calendar.get(Calendar.DAY_OF_MONTH)

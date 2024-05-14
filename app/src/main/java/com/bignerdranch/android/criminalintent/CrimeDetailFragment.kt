@@ -43,13 +43,14 @@ class CrimeDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // This callback is only called when MyFragment is at least started
+        // This callback is only called when Fragment is at least started
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            // Handle the back button event
+            // Handle the back button event and prevent blank crime titles
             if (binding.editTextCrimeTitle.text.toString().isBlank()) {
                 Toast.makeText(context, R.string.crime_title_cannot_be_empty, Toast.LENGTH_SHORT)
                     .show()
             } else {
+                // Go back to Crime List fragment
                 findNavController().popBackStack()
             }
         }
